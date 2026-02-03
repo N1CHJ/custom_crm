@@ -1,0 +1,11 @@
+name = "zanes-crm-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "development"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "custom-crm-db"
+database_id = "9714d85c-1ecf-4249-89c1-5d786d62844c"

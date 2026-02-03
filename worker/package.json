@@ -1,0 +1,21 @@
+{
+  "name": "zanes-crm-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 execute zanes-crm-db --local --file=./src/db/schema.sql",
+    "db:migrate:prod": "wrangler d1 execute zanes-crm-db --file=./src/db/schema.sql",
+    "db:seed": "wrangler d1 execute zanes-crm-db --local --file=./src/db/seed.sql"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.22.0"
+  }
+}

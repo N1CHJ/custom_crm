@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, Mail, Phone, Building2, Edit, Trash2, ArrowUpRight, Plus, Clock, CheckCircle } from 'lucide-react';
-import { leadsApi, activitiesApi } from '../services/api';
+import { ArrowLeft, Mail, Phone, Building2, Edit, Trash2, ArrowUpRight, Plus } from 'lucide-react';
+import { leadsApi } from '../services/api';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 import type { LeadStatus } from '../types';

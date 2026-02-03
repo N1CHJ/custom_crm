@@ -28,7 +28,7 @@ export default function ContactModal({ isOpen, onClose, contact }: ContactModalP
 
   const { data: companies } = useQuery({
     queryKey: ['companies-dropdown'],
-    queryFn: () => companiesApi.getAll({ limit: 100 }),
+    queryFn: () => companiesApi.getAll({ limit: '100' }),
     enabled: isOpen,
   });
 
@@ -87,7 +87,7 @@ export default function ContactModal({ isOpen, onClose, contact }: ContactModalP
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<FormData> }) =>
+    mutationFn: ({ id, data }: { id: string; data: Partial<import('../../types').Contact> }) =>
       contactsApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['contacts'] });
@@ -102,7 +102,7 @@ export default function ContactModal({ isOpen, onClose, contact }: ContactModalP
   });
 
   const onSubmit = (data: FormData) => {
-    const submitData = {
+    const submitData: Partial<import('../../types').Contact> = {
       ...data,
       company_id: data.company_id || null,
     };

@@ -37,7 +37,7 @@ export default function ActivityTimeline({ activities }: ActivityTimelineProps) 
       <div className="absolute left-5 top-0 h-full w-0.5 bg-gray-200" />
 
       <div className="space-y-6">
-        {activities.map((activity, index) => {
+        {activities.map((activity) => {
           const Icon = activityIcons[activity.type];
           const colorClass = activityColors[activity.type];
 

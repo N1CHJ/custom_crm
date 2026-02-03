@@ -1,7 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard,
-  Users,
   UserCircle,
   Building2,
   DollarSign,

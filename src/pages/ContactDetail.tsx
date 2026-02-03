@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ArrowLeft, Mail, Phone, Building2, Edit, Trash2, Plus, Linkedin, Globe } from 'lucide-react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { ArrowLeft, Mail, Phone, Building2, Edit, Trash2, Plus, Linkedin } from 'lucide-react';
 import { contactsApi } from '../services/api';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
@@ -12,7 +12,6 @@ import ActivityModal from '../components/activities/ActivityModal';
 export default function ContactDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { 
     isContactModalOpen, setContactModalOpen, 
     isActivityModalOpen, setActivityModalOpen,

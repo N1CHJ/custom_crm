@@ -7,7 +7,6 @@ import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 import type { Company } from '../types';
 import CompanyModal from '../components/companies/CompanyModal';
-import { useAppStore } from '../stores/appStore';
 
 export default function Companies() {
   const queryClient = useQueryClient();

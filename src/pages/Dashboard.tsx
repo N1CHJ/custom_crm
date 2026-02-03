@@ -5,8 +5,6 @@ import {
   Building2, 
   DollarSign, 
   TrendingUp, 
-  Clock,
-  AlertCircle,
   CheckCircle,
   Phone,
   Mail,

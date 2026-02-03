@@ -1,8 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { ArrowLeft, Building2, Globe, Phone, MapPin, Users, Edit, Trash2, Plus } from 'lucide-react';
 import { companiesApi } from '../services/api';
-import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 import ActivityTimeline from '../components/common/ActivityTimeline';
 import CompanyModal from '../components/companies/CompanyModal';
@@ -13,7 +12,6 @@ import { useAppStore } from '../stores/appStore';
 export default function CompanyDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isActivityModalOpen, setActivityModalOpen, setActivityContext } = useAppStore();
 

@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Menu, Search, Bell, Plus, ChevronDown, Menu as MenuIcon } from 'lucide-react';
+import { Search, Bell, Plus, ChevronDown, Menu as MenuIcon } from 'lucide-react';
 import { useAppStore } from '../../stores/appStore';
 
 export default function Header() {
-  const navigate = useNavigate();
+
   const { currentUser, toggleSidebar, setLeadModalOpen, setContactModalOpen, setDealModalOpen, setActivityModalOpen } = useAppStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [showQuickAdd, setShowQuickAdd] = useState(false);

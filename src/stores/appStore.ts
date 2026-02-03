@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { User, Lead, Contact, Deal, Activity, PipelineStage } from '../types';
+import type { User, Lead, Contact, Deal, Activity } from '../types';
 
 interface AppState {
   // User

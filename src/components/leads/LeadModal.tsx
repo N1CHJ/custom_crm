@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { X } from 'lucide-react';
 import { leadsApi } from '../../services/api';
 import toast from 'react-hot-toast';
-import type { Lead } from '../../types';
+import type { Lead, LeadStatus, LeadSource } from '../../types';
 
 interface LeadModalProps {
   isOpen: boolean;
@@ -16,9 +16,9 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  company: string;
-  source: string;
-  status: string;
+  company_name: string;
+  source: LeadSource;
+  status: LeadStatus;
   notes: string;
 }
 
@@ -36,7 +36,7 @@ export default function LeadModal({ isOpen, onClose, lead }: LeadModalProps) {
       name: '',
       email: '',
       phone: '',
-      company: '',
+      company_name: '',
       source: 'website',
       status: 'new',
       notes: '',
@@ -49,7 +49,7 @@ export default function LeadModal({ isOpen, onClose, lead }: LeadModalProps) {
         name: lead.name || '',
         email: lead.email || '',
         phone: lead.phone || '',
-        company: lead.company || '',
+        company_name: lead.company_name || '',
         source: lead.source || 'website',
         status: lead.status || 'new',
         notes: lead.notes || '',
@@ -59,7 +59,7 @@ export default function LeadModal({ isOpen, onClose, lead }: LeadModalProps) {
         name: '',
         email: '',
         phone: '',
-        company: '',
+        company_name: '',
         source: 'website',
         status: 'new',
         notes: '',
@@ -81,7 +81,7 @@ export default function LeadModal({ isOpen, onClose, lead }: LeadModalProps) {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<FormData> }) =>
+    mutationFn: ({ id, data }: { id: string; data: Partial<Lead> }) =>
       leadsApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['leads'] });
@@ -96,10 +96,13 @@ export default function LeadModal({ isOpen, onClose, lead }: LeadModalProps) {
   });
 
   const onSubmit = (data: FormData) => {
+    const submitData: Partial<Lead> = {
+      ...data,
+    };
     if (isEditing) {
-      updateMutation.mutate({ id: lead.id, data });
+      updateMutation.mutate({ id: lead.id, data: submitData });
     } else {
-      createMutation.mutate(data);
+      createMutation.mutate(submitData);
     }
   };
 
@@ -177,7 +180,7 @@ export default function LeadModal({ isOpen, onClose, lead }: LeadModalProps) {
               </label>
               <input
                 type="text"
-                {...register('company')}
+                {...register('company_name')}
                 className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
                 placeholder="Acme Inc"
               />

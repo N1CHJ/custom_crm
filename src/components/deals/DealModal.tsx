@@ -30,13 +30,13 @@ export default function DealModal({ isOpen, onClose, deal }: DealModalProps) {
 
   const { data: contacts } = useQuery({
     queryKey: ['contacts-dropdown'],
-    queryFn: () => contactsApi.getAll({ limit: 100 }),
+    queryFn: () => contactsApi.getAll({ limit: '100' }),
     enabled: isOpen,
   });
 
   const { data: companies } = useQuery({
     queryKey: ['companies-dropdown'],
-    queryFn: () => companiesApi.getAll({ limit: 100 }),
+    queryFn: () => companiesApi.getAll({ limit: '100' }),
     enabled: isOpen,
   });
 
@@ -108,7 +108,7 @@ export default function DealModal({ isOpen, onClose, deal }: DealModalProps) {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<FormData> }) =>
+    mutationFn: ({ id, data }: { id: string; data: Partial<import('../../types').Deal> }) =>
       dealsApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['deals'] });
@@ -124,7 +124,7 @@ export default function DealModal({ isOpen, onClose, deal }: DealModalProps) {
   });
 
   const onSubmit = (data: FormData) => {
-    const submitData = {
+    const submitData: Partial<import('../../types').Deal> = {
       ...data,
       contact_id: data.contact_id || null,
       company_id: data.company_id || null,

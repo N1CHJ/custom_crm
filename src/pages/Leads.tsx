@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { Plus, Search, Filter, MoreHorizontal, Mail, Phone, Building2, Trash2, Edit, ArrowUpRight } from 'lucide-react';
+import { Plus, Search, Mail, Phone, Building2, Trash2, Edit, ArrowUpRight } from 'lucide-react';
 import { leadsApi } from '../services/api';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';

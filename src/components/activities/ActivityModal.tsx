@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { X } from 'lucide-react';
 import { activitiesApi, contactsApi, dealsApi, leadsApi } from '../../services/api';
 import toast from 'react-hot-toast';
-import type { Activity } from '../../types';
+import type { Activity, ActivityType } from '../../types';
 import { useAppStore } from '../../stores/appStore';
 
 interface ActivityModalProps {
@@ -14,10 +14,10 @@ interface ActivityModalProps {
 }
 
 interface FormData {
-  type: string;
+  type: ActivityType;
   subject: string;
   description: string;
-  status: string;
+  status: 'pending' | 'completed' | 'cancelled';
   due_date: string;
   lead_id: string;
   contact_id: string;
@@ -31,19 +31,19 @@ export default function ActivityModal({ isOpen, onClose, activity }: ActivityMod
 
   const { data: contacts } = useQuery({
     queryKey: ['contacts-dropdown'],
-    queryFn: () => contactsApi.getAll({ limit: 100 }),
+    queryFn: () => contactsApi.getAll({ limit: '100' }),
     enabled: isOpen,
   });
 
   const { data: deals } = useQuery({
     queryKey: ['deals-dropdown'],
-    queryFn: () => dealsApi.getAll({ limit: 100 }),
+    queryFn: () => dealsApi.getAll({ limit: '100' }),
     enabled: isOpen,
   });
 
   const { data: leads } = useQuery({
     queryKey: ['leads-dropdown'],
-    queryFn: () => leadsApi.getAll({ limit: 100 }),
+    queryFn: () => leadsApi.getAll({ limit: '100' }),
     enabled: isOpen,
   });
 
@@ -108,7 +108,7 @@ export default function ActivityModal({ isOpen, onClose, activity }: ActivityMod
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<FormData> }) =>
+    mutationFn: ({ id, data }: { id: string; data: Partial<Activity> }) =>
       activitiesApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['activities'] });
@@ -125,8 +125,11 @@ export default function ActivityModal({ isOpen, onClose, activity }: ActivityMod
   });
 
   const onSubmit = (data: FormData) => {
-    const submitData = {
-      ...data,
+    const submitData: Partial<Activity> = {
+      type: data.type,
+      subject: data.subject,
+      description: data.description,
+      status: data.status,
       lead_id: data.lead_id || null,
       contact_id: data.contact_id || null,
       deal_id: data.deal_id || null,

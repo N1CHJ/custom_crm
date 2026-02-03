@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Plus, DollarSign, GripVertical } from 'lucide-react';
 import { dealsApi } from '../services/api';
 import toast from 'react-hot-toast';
-import type { Deal, PipelineStage } from '../types';
+import type { Deal } from '../types';
 import DealModal from '../components/deals/DealModal';
 import { useAppStore } from '../stores/appStore';
 import { useState } from 'react';

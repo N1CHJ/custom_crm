@@ -16,7 +16,7 @@ interface FormData {
   name: string;
   domain: string;
   industry: string;
-  size: string;
+  size: '1-10' | '11-50' | '51-200' | '201-500' | '500+' | '';
   address: string;
   city: string;
   state: string;
@@ -89,7 +89,7 @@ export default function CompanyModal({ isOpen, onClose, company }: CompanyModalP
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<FormData> }) =>
+    mutationFn: ({ id, data }: { id: string; data: Partial<import('../../types').Company> }) =>
       companiesApi.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['companies'] });
@@ -104,10 +104,14 @@ export default function CompanyModal({ isOpen, onClose, company }: CompanyModalP
   });
 
   const onSubmit = (data: FormData) => {
+    const submitData: Partial<import('../../types').Company> = {
+      ...data,
+      size: data.size || null,
+    };
     if (isEditing) {
-      updateMutation.mutate({ id: company.id, data });
+      updateMutation.mutate({ id: company.id, data: submitData });
     } else {
-      createMutation.mutate(data);
+      createMutation.mutate(submitData);
     }
   };
 
